@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android App
 
 on:
   push:
@@ -27,17 +27,17 @@ jobs:
       - name: Install Cordova
         run: npm install -g cordova
 
-      - name: Initialize Project and Build APK
+      - name: Initialize Project and Build APK & AAB
         run: |
           cordova create tempcom com.bioseeker.app BioSeeker
           cp -r www/* tempcom/www/
           cd tempcom
           cordova platform add android
-          cordova build android --release
-          cp platforms/android/app/build/outputs/apk/release/*.apk ../app-release.apk
+          cordova build android --release -- --apk
 
-      - name: Upload APK Artifact
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: App-Release-APK
+          name: BioSeeker-Android-App
+          path: tempcom/platforms/android/app/build/outputs/
           path: app-release.apk
