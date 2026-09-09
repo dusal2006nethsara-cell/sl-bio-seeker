@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Focus — Bio Seeker</title>
+<meta name="description" content="එන්න Pomodoro timer සහ spaced repetition flashcards වලින් Biology study කරමු .">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#23D9A0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+      <a href="videos.html">Videos</a>
+      <a href="notes.html">Notes</a>
+      <a href="quizzes.html">Quiz</a>
+      <a href="exam.html">Exam Mode</a>
+      <a href="diagrams.html">Diagrams</a>
+      <a href="tools.html">Tools</a>
+      <a href="focus.html" class="active">Deep Focus</a>
+      <a class="btn btn-coral nav-cta" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom:8px;">
+    <div class="wrap">
+      <span class="eyebrow">Study smarter</span>
+      <h1 style="font-size:clamp(28px,4vw,40px);">Deep Focus</h1>
+      <p class="lead" style="max-width:600px;">Focus වෙලා study කරන්න Pomodoro timer එකයි, දිගටම මතක තියාගන්න spaced repetition flashcards එකයි — දෙකම මෙතන.</p>
+    </div>
+  </section>
+
+  <!-- Pomodoro -->
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">01 · Pomodoro Technique</span>
+        <h2>25 විනාඩි focus, 5 විනාඩි break</h2>
+        <p>විනාඩි 25ක් distraction නැතුව එක දෙයකට focus කරන්න, පස්සේ පොඩි break එකක් ගන්න. Cycles 4කට පස්සේ longer break එකක්.</p>
+      </div>
+      <div class="tool-box" style="max-width:480px;margin:0 auto;">
+        <div class="timer-mode">
+          <span class="mode-pill" id="modeFocus">Focus</span>
+          <span class="mode-pill" id="modeShort">Short break</span>
+          <span class="mode-pill" id="modeLong">Long break</span>
+        </div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div id="ringRow" style="text-align:center;margin-bottom:6px;"></div>
+        <div class="timer-controls">
+          <button class="btn btn-primary" id="startBtn">▶ Start</button>
+          <button class="btn" id="pauseBtn" disabled>⏸ Pause</button>
+          <button class="btn" id="resetBtn">↺ Reset</button>
+        </div>
+        <div class="timer-sessions">
+          <span style="font-size:13px;color:var(--ink-soft);">අද ඉවර කරපු Pomodoros: <strong id="sessionCount" style="color:var(--ink);">0</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaced repetition -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">02 · Spaced Repetition</span>
+        <h2>Flashcards — දිගටම මතක තියාගමු</h2>
+        <p>Card එක click කරලා flip කරන්න, උත්තරය බලලා කොච්චර ලේසිද කියලා තෝරන්න. ලේසි cards ආයෙත් පේන්නෙ ටික දවසකින්, අමාරු cards ඉක්මනින් ආයෙත් එනවා හොදේ </p>
+      </div>
+      <div class="tool-box">
+        <div class="flash-progress" id="flashProgress"></div>
+        <div class="flash-stage">
+          <div class="flash-card" id="flashCard">
+            <div class="flash-face front">
+              <div class="flash-term" id="flashTerm"></div>
+            </div>
+            <div class="flash-face back">
+              <div class="flash-def" id="flashDef"></div>
+            </div>
+          </div>
+        </div>
+        <p class="center" style="font-size:13px;color:var(--ink-soft);margin-top:14px;" id="flashHint">Card එක click කරලා උත්තරය බලන්න</p>
+        <div class="flash-rate" id="flashRate" style="display:none;">
+          <button class="btn btn-coral" data-rate="again">අමතකයි</button>
+          <button class="btn" data-rate="hard">අමාරුයි</button>
+          <button class="btn" data-rate="good">හරි</button>
+          <button class="btn btn-primary" data-rate="easy">ලේසියි</button>
+        </div>
+      </div>
+    </div>
+  <!-- Memory calendar -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">03 · Memory Calendar</span>
+        <h2>අද මොකද review කරන්න ඕන?</h2>
+        <p>ඔයාගේ flashcard progress එක අනුව, දවසින් දවස review කරන්න ඕන දේවල් calendar එකේ පේනවා. Dot එකක් තියෙන දවසේ review කරන්න ඕන cards තියෙනවා.</p>
+      </div>
+      <div class="tool-box" style="max-width:480px;margin:0 auto;">
+        <h3 id="calMonthLabel" class="center" style="margin-bottom:4px;"></h3>
+        <div class="cal-grid" id="calGrid"></div>
+        <div style="margin-top:20px;padding-top:16px;border-top:0.5px solid var(--line);">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:14px;font-weight:600;">අද review කරන්න ඕන:</span>
+            <span id="todayDueCount" style="font-size:14px;color:var(--forest-deep);font-weight:700;">0</span>
+          </div>
+          <div class="due-list" id="todayDueList"></div>
+          <button class="btn btn-primary" id="remindBtn" style="width:100%;margin-top:16px;justify-content:center;">🔔 මට මතක් කරන්න</button>
+          <p style="font-size:12px;color:var(--ink-soft);margin:10px 0 0;text-align:center;">Note: මේ reminder එක browser tab එක open කරලා තියෙනකොට විතරයි වැඩ කරන්නෙ — browser එක වහලා තිබ්බොත් notification එක එන්නෙ නෑ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note">Made for A/L Biology students, Sri Lanka 🇱🇰</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============================= Pomodoro ============================= */
+var DURATIONS = { focus: 25 * 60, short: 5 * 60, long: 15 * 60 };
+var mode = 'focus';
+var timeLeft = DURATIONS.focus;
+var timerId = null;
+var running = false;
+var cyclesDone = 0;
+
+var timerDisplay = document.getElementById('timerDisplay');
+var startBtn = document.getElementById('startBtn');
+var pauseBtn = document.getElementById('pauseBtn');
+var resetBtn = document.getElementById('resetBtn');
+var sessionCountEl = document.getElementById('sessionCount');
+var ringRow = document.getElementById('ringRow');
+var modePills = { focus: document.getElementById('modeFocus'), short: document.getElementById('modeShort'), long: document.getElementById('modeLong') };
+
+function todayKey() {
+  var d = new Date();
+  return 'bioseeker_pomo_' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+}
+function loadSessionCount() {
+  var v = localStorage.getItem(todayKey());
+  return v ? parseInt(v, 10) : 0;
+}
+function saveSessionCount(n) {
+  localStorage.setItem(todayKey(), String(n));
+}
+
+function renderRings() {
+  ringRow.innerHTML = '';
+  for (var i = 0; i < 4; i++) {
+    var dot = document.createElement('span');
+    dot.className = 'timer-ring' + (i < (cyclesDone % 4) ? ' done' : '');
+    ringRow.appendChild(dot);
+  }
+}
+
+function formatTime(s) {
+  var m = Math.floor(s / 60);
+  var sec = s % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function setMode(newMode) {
+  mode = newMode;
+  timeLeft = DURATIONS[mode];
+  Object.keys(modePills).forEach(function (k) { modePills[k].classList.toggle('on', k === mode); });
+  timerDisplay.textContent = formatTime(timeLeft);
+}
+
+function tick() {
+  timeLeft--;
+  timerDisplay.textContent = formatTime(timeLeft);
+  if (timeLeft <= 0) {
+    clearInterval(timerId);
+    running = false;
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+    if (mode === 'focus') {
+      cyclesDone++;
+      sessionCountEl.textContent = String(cyclesDone);
+      saveSessionCount(cyclesDone);
+      renderRings();
+      setMode(cyclesDone % 4 === 0 ? 'long' : 'short');
+    } else {
+      setMode('focus');
+    }
+  }
+}
+
+startBtn.onclick = function () {
+  if (running) return;
+  running = true;
+  startBtn.disabled = true;
+  pauseBtn.disabled = false;
+  timerId = setInterval(tick, 1000);
+};
+pauseBtn.onclick = function () {
+  running = false;
+  clearInterval(timerId);
+  startBtn.disabled = false;
+  pauseBtn.disabled = true;
+};
+resetBtn.onclick = function () {
+  running = false;
+  clearInterval(timerId);
+  startBtn.disabled = false;
+  pauseBtn.disabled = true;
+  setMode('focus');
+};
+
+cyclesDone = loadSessionCount();
+sessionCountEl.textContent = String(cyclesDone);
+renderRings();
+setMode('focus');
+
+/* ============================= Flashcards =============================
+   අලුත් term එකක් එකතු කරන්න මේ array එකට object එකක් දාන්න:
+   { term: "Term එක", def: "අර්ථ දැක්වීම" }
+   ======================================================================= */
+var deckSource = [
+  { term: 'ස්වාබාවික සම්පත් යනු', def: 'එදිනෙදා ජීවිතයට හා ආර්තික සංවර්දනයට වැදගත් වන ස්වබාවිකව හමුවන ද්‍රවයය හා ශක්ති ප්‍රබව ' },
+  { term: 'තිරසර ආහාර නිශ්පාදනය ', def: 'මානව ජනග්‍රහනයට ප්‍රමානවත් වන ආකරයට පරිසර සුරක්ශිත ක්‍රම බාවිතා කරමින් ආහාර නිපදවීමේ ක්‍රියාවලිය' },
+  { term: 'පරිවෘත්තිය ', def: 'ජීවීන් තුල සිදුවන සියලුම රසායනික ප්‍රතික්‍රියාවල සමස්තය' },
+  { term: 'වර්දනය ', def: 'ජීවියෙකු තුල අප්‍රතිවත්‍ය ලෙස සිදුවන වියලි ස්කන්දයේ වැඩිවීම ' },
+  { term: 'විකසනය ', def: 'ජීවියෙකුගේ ජීවිත කාලය තුල සිදුවන සියලුම අප්‍රතිවත්‍ය වෙනස් වීම් ' },
+  { term: 'විශාලනය ', def: 'යම් වස්තුවක ප්‍ර්තිබිම්බයේ ප්‍රමානය එම වස්තුවේ සත්‍ය ප්‍රමානයට දක්වන අනුපාතය  ' },
+  { term: 'Genotype', def: 'ජීවියෙකුගේ ජාන composition එක (උදා: Tt)' },
+  { term: 'Phenotype', def: 'ජාන ප්‍රකාශ වන ආකාරය — පේන ලක්ෂණය' },
+  { term: 'Mitosis', def: 'Parent cell එකට identical daughter cells 2ක් ලැබෙන සෛල බෙදීම' },
+  { term: 'Meiosis', def: 'Genetically different daughter cells 4ක් ලැබෙන සෛල බෙදීම' },
+  { term: 'Homeostasis', def: 'ශරීරයේ අභ්‍යන්තර පරිසරය ස්ථාවරව තබා ගැනීම' },
+  { term: 'Osmosis', def: 'ජල අණු අර්ධ පාරගම්‍ය පටලයක් හරහා අඩු concentration එකේ සිට වැඩි concentration එකට ගමන් කිරීම' },
+  { term: 'Enzyme', def: 'ජීව රසායනික ප්‍රතික්‍රියා catalyze කරන ප්‍රෝටීන' },
+  { term: 'Chromosome', def: 'DNA සහ protein වලින් සැදුම් සෛල න්‍යෂ්ටියේ ව්‍යුහය' },
+  { term: 'Allele', def: 'එකම gene එකක විවිධ ස්වරූප (උදා: T, t)' },
+  { term: 'Dominant allele', def: 'Heterozygous තත්වයේදී phenotype එකේ ප්‍රකාශ වන allele එක' },
+  { term: 'Recessive allele', def: 'Dominant allele එකක් ඉදිරියේ mask වන allele එක' },
+  { term: 'Ecosystem', def: 'ජීවීන් සහ ඔවුන්ගේ පරිසරය අන්තර්ක්‍රියා කරන පද්ධතිය' },
+  { term: 'Decomposer', def: 'මළ ජීවීන් decompose කරලා nutrients නැවත පරිසරයට එකතු කරන ජීවීන්' },
+  { term: 'Chlorophyll', def: 'ශාකවල ආලෝකය absorb කරන pigment එක — chloroplast එකේ තියෙනවා' }
+];
+
+var STORAGE_KEY = 'bioseeker_flashcards_v1';
+
+function loadDeck() {
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { saved = {}; }
+  return deckSource.map(function (c) {
+    var s = saved[c.term] || { interval: 0, due: 0 };
+    return { term: c.term, def: c.def, interval: s.interval, due: s.due };
+  });
+}
+function saveDeck(deck) {
+  var out = {};
+  deck.forEach(function (c) { out[c.term] = { interval: c.interval, due: c.due }; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(out));
+}
+
+var deck = loadDeck();
+var queue = [];
+var activeIndex = 0;
+var flipped = false;
+
+var cardEl = document.getElementById('flashCard');
+var termEl = document.getElementById('flashTerm');
+var defEl = document.getElementById('flashDef');
+var hintEl = document.getElementById('flashHint');
+var rateEl = document.getElementById('flashRate');
+var progressEl = document.getElementById('flashProgress');
+
+function buildQueue() {
+  var now = Date.now();
+  queue = deck.filter(function (c) { return c.due <= now; });
+  if (queue.length === 0) queue = deck.slice();
+  activeIndex = 0;
+}
+
+function showCard() {
+  if (queue.length === 0) {
+    termEl.textContent = 'සියල්ල ඉවරයි! 🎉';
+    defEl.textContent = '';
+    hintEl.textContent = 'ආයෙත් පස්සේ එන්න — cards දිගටම schedule වෙනවා.';
+    rateEl.style.display = 'none';
+    progressEl.textContent = '';
+    return;
+  }
+  var c = queue[activeIndex];
+  termEl.textContent = c.term;
+  defEl.textContent = c.def;
+  flipped = false;
+  cardEl.classList.remove('flipped');
+  hintEl.style.display = 'block';
+  rateEl.style.display = 'none';
+  progressEl.textContent = (activeIndex + 1) + ' / ' + queue.length + ' — අද review කරන cards';
+}
+
+cardEl.addEventListener('click', function () {
+  if (queue.length === 0) return;
+  flipped = !flipped;
+  cardEl.classList.toggle('flipped', flipped);
+  hintEl.style.display = flipped ? 'none' : 'block';
+  rateEl.style.display = flipped ? 'flex' : 'none';
+});
+
+var INTERVALS_DAYS = [1, 3, 7, 16, 35];
+rateEl.querySelectorAll('button').forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var rating = btn.getAttribute('data-rate');
+    var c = queue[activeIndex];
+    var deckCard = deck.find(function (d) { return d.term === c.term; });
+    var stepIndex = INTERVALS_DAYS.indexOf(deckCard.interval);
+    if (rating === 'again') {
+      deckCard.interval = 0;
+    } else if (rating === 'hard') {
+      deckCard.interval = INTERVALS_DAYS[0];
+    } else if (rating === 'good') {
+      deckCard.interval = INTERVALS_DAYS[Math.min(stepIndex + 1, INTERVALS_DAYS.length - 1)] || INTERVALS_DAYS[0];
+    } else {
+      deckCard.interval = INTERVALS_DAYS[Math.min(stepIndex + 2, INTERVALS_DAYS.length - 1)] || INTERVALS_DAYS[1];
+    }
+    deckCard.due = Date.now() + deckCard.interval * 24 * 60 * 60 * 1000;
+    saveDeck(deck);
+
+    activeIndex++;
+    if (activeIndex >= queue.length) {
+      buildQueue();
+    }
+    showCard();
+  });
+});
+
+buildQueue();
+showCard();
+
+/* ============================= Memory Calendar ============================= */
+var calMonthLabel = document.getElementById('calMonthLabel');
+var calGrid = document.getElementById('calGrid');
+var todayDueCount = document.getElementById('todayDueCount');
+var todayDueList = document.getElementById('todayDueList');
+var remindBtn = document.getElementById('remindBtn');
+
+var MONTH_NAMES = ['ජනවාරි','පෙබරවාරි','මාර්තු','අප්‍රේල්','මැයි','ජූනි','ජූලි','අගෝස්තු','සැප්තැම්බර්','ඔක්තෝබර්','නොවැම්බර්','දෙසැම්බර්'];
+var DOW = ['ඉ','ස','අ','බ','බ්‍ර','සි','සෙ'];
+
+function dateKey(d) { return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+
+function renderCalendar() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  calMonthLabel.textContent = MONTH_NAMES[month] + ' ' + year;
+
+  var dueDatesSet = {};
+  deck.forEach(function (c) {
+    if (c.due) {
+      var d = new Date(c.due);
+      dueDatesSet[dateKey(d)] = (dueDatesSet[dateKey(d)] || 0) + 1;
+    }
+  });
+
+  calGrid.innerHTML = '';
+  DOW.forEach(function (label) {
+    var el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = label;
+    calGrid.appendChild(el);
+  });
+
+  var firstDay = new Date(year, month, 1);
+  var startOffset = firstDay.getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var todayStr = dateKey(now);
+
+  for (var i = 0; i < startOffset; i++) {
+    var empty = document.createElement('div');
+    empty.className = 'cal-cell empty';
+    calGrid.appendChild(empty);
+  }
+  for (var day = 1; day <= daysInMonth; day++) {
+    var cellDate = new Date(year, month, day);
+    var key = dateKey(cellDate);
+    var cell = document.createElement('div');
+    cell.className = 'cal-cell' + (key === todayStr ? ' today' : '') + (dueDatesSet[key] ? ' has-due' : '');
+    cell.textContent = String(day);
+    calGrid.appendChild(cell);
+  }
+
+  var dueToday = deck.filter(function (c) { return c.due && dateKey(new Date(c.due)) === todayStr; });
+  var overdue = deck.filter(function (c) { return c.due && c.due < now.setHours(0,0,0,0); });
+  var todaysTerms = dueToday.concat(overdue.filter(function (c) { return dueToday.indexOf(c) === -1; }));
+
+  todayDueCount.textContent = String(todaysTerms.length);
+  todayDueList.innerHTML = '';
+  todaysTerms.slice(0, 10).forEach(function (c) {
+    var chip = document.createElement('span');
+    chip.className = 'due-chip';
+    chip.textContent = c.term;
+    todayDueList.appendChild(chip);
+  });
+  if (todaysTerms.length === 0) {
+    var chip2 = document.createElement('span');
+    chip2.className = 'due-chip';
+    chip2.textContent = 'අද review කරන්න දෙයක් නෑ 🎉';
+    todayDueList.appendChild(chip2);
+  }
+
+  return todaysTerms.length;
+}
+
+var dueCountNow = renderCalendar();
+
+remindBtn.addEventListener('click', function () {
+  if (!('Notification' in window)) {
+    alert('මේ browser එකේ notifications support වෙන්නෙ නෑ.');
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    fireReminder();
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(function (perm) {
+      if (perm === 'granted') fireReminder();
+    });
+  } else {
+    alert('Notifications block කරලා තියෙනවා — browser settings එකෙන් allow කරන්න ඕන.');
+  }
+});
+
+function fireReminder() {
+  var n = dueCountNow;
+  new Notification('Bio Seeker — Memory Calendar', {
+    body: n > 0 ? ('අද review කරන්න cards ' + n + 'ක් තියෙනවා! 🧬') : 'අද review කරන්න දෙයක් නෑ — නියමයි! 🎉',
+    icon: 'assets/logo.png'
+  });
+}
+</script>
+</body>
+</html>

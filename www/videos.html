@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos — Bio Seeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#23D9A0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+      <a href="videos.html" class="active">Videos</a>
+      <a href="notes.html">Notes</a>
+      <a href="quizzes.html">Quiz</a>
+      <a href="exam.html">Exam Mode</a>
+      <a href="diagrams.html">Diagrams</a>
+      <a href="tools.html">Tools</a>
+      <a href="focus.html">Deep Focus</a>
+      <a class="btn btn-coral nav-cta" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom:24px;">
+    <div class="wrap">
+      <span class="eyebrow">Video lessons</span>
+      <h1 style="font-size:clamp(28px,4vw,40px);">චැනල් එකේ සියලුම පාඩම්</h1>
+      <p class="lead" style="max-width:600px;">Lesson category එකක් තෝරලා ඒ topic එකේ videos විතරක් බලන්න, එහෙම නැත්නම් "සියල්ල" tab එකෙන් සියලුම videos order එකේම බලන්න.</p>
+      <div class="lesson-tabs" id="lessonTabs">
+        <button class="lesson-tab active" data-key="all">සියල්ල</button>
+        <button class="lesson-tab" data-key="cell">පෘතිවියේ ආරම්බය මෙහෙමද වුනේ </button>
+        <button class="lesson-tab" data-key="genetics">පරිනාමවාදය සැගවුනු ඇත්ත  මිනිස් ඇසෙන්  </button>
+        <button class="lesson-tab" data-key="division">චීන මිනිස් රොබෝ හා මිනිස් සන්දි </button>
+        <button class="lesson-tab" data-key="photosynthesis">ප්‍රබාසංස්ලේශ්නය</button>
+        <button class="lesson-tab" data-key="photosynthesis">වායු</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="video-frame" id="videoFrame" style="padding-top:56.25%; position:relative; height:0; overflow:hidden;">
+        <iframe id="videoIframe" src="https://www.youtube.com/embed/videoseries?list=UUzOjYhhKoKO6opwvGnL1f3A" title="SL Bio Seeker — වීඩියෝ" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="tool-box center" id="lessonEmpty" style="display:none;margin-top:16px;">
+        <p style="margin:0;">මේ lesson එකේ video/playlist එක ඉක්මනින් එකතු වෙනවා.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card center">
+        <h3>Video එක හොයාගන්න බැරිද?</h3>
+        <p>චැනල් එකටම ගිහින් search කරන්න, නැත්නම් subscribe කරලා අලුත් video පළමුවෙන්ම දැනගන්න.</p>
+        <a class="btn btn-primary" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">YouTube එකට යමු ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note">Made for A/L Biology students, Sri Lanka 🇱🇰</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// 📌 මෙතනට ඔයාගේ YouTube Links දාන්න:
+var lessonVideos = {
+  all: 'https://www.youtube.com/embed/videoseries?list=UUzOjYhhKoKO6opwvGnL1f3A', // සියලුම වීඩියෝ Playlist එක
+  cell: 'https://youtu.be/4OB8H5041ek?si=fLo9_c7fjFxOSRJk', // සෛල ව්‍යුහය single video link එක හෝ playlist link එක
+  genetics: 'https://youtu.be/tT0j30WaYMY?si=LFgAAHblJdnQBrTk', // ජාන විද්‍යාව video link එක
+  division: 'https://youtu.be/wTSctM64OXk?si=QNQyYSDqtuYuZIYZ',//
+  photosynthesis: 'https://youtu.be/K9Ub6rxwNJM?si=dp8OmVOOw0cQhZjc',//
+  gas : null
+};
+
+// YouTube Link එක Iframe එකට ගැලපෙන Embed Link එකක් බවට හරවන function එක
+function getEmbedUrl(url) {
+  if (!url) return null;
+  if (url.includes('embed')) return url;
+  
+  // Single Video Links (https://www.youtube.com/watch?v=xxxx හෝ https://youtu.be/xxxx)
+  var videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  if (videoIdMatch && videoIdMatch[1]) {
+    return 'https://www.youtube.com/embed/' + videoIdMatch[1];
+  }
+  
+  // Playlist Links
+  var playlistIdMatch = url.match(/[&?]list=([^&]+)/);
+  if (playlistIdMatch && playlistIdMatch[1]) {
+    return 'https://www.youtube.com/embed/videoseries?list=' + playlistIdMatch[1];
+  }
+  
+  return url;
+}
+
+var tabs = document.querySelectorAll('.lesson-tab');
+var iframe = document.getElementById('videoIframe');
+var videoFrame = document.getElementById('videoFrame');
+var emptyMsg = document.getElementById('lessonEmpty');
+
+tabs.forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    tabs.forEach(function (t) { t.classList.remove('active'); });
+    tab.classList.add('active');
+    
+    var key = tab.getAttribute('data-key');
+    var rawUrl = lessonVideos[key];
+    var embedUrl = getEmbedUrl(rawUrl);
+
+    if (embedUrl) {
+      iframe.src = embedUrl;
+      videoFrame.style.display = 'block';
+      emptyMsg.style.display = 'none';
+    } else {
+      videoFrame.style.display = 'none';
+      emptyMsg.style.display = 'block';
+    }
+  });
+});
+</script>
+</body>
+</html>

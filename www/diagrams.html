@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagram Labeling — Bio Seeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#23D9A0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+      <a href="videos.html">Videos</a>
+      <a href="notes.html">Notes</a>
+      <a href="quizzes.html">Quiz</a>
+      <a href="exam.html">Exam Mode</a>
+      <a href="diagrams.html" class="active">Diagrams</a>
+      <a href="tools.html">Tools</a>
+      <a href="focus.html">Deep Focus</a>
+      <a class="btn btn-coral nav-cta" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom:8px;">
+    <div class="wrap center">
+      <span class="eyebrow">🏷️ Diagram Labeling</span>
+      <h1 style="font-size:clamp(28px,4vw,40px);">Label එක් කරන්න පුළුවන්ද?</h1>
+      <p class="lead" style="max-width:560px;margin:0 auto;">පහළ label එකක් tap කරලා, diagram එකේ ඒකට ගැලපෙන circle එක tap කරන්න. Diagram එකක් තෝරගන්න.</p>
+      <div class="dg-tabs" id="dgTabs"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="tool-box">
+        <div class="dg-stage" id="dgStage">
+          <svg id="dgSvg" viewBox="0 0 400 400" style="width:100%;"></svg>
+        </div>
+        <div class="dg-wordbank" id="dgWordbank"></div>
+        <p class="dg-status" id="dgStatus"></p>
+        <div class="center" style="margin-top:14px;">
+          <button class="btn" id="dgReset">↺ Reset කරන්න</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note">Made for A/L Biology students, Sri Lanka 🇱🇰</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* =====================================================================
+   DIAGRAMS — අලුත් diagram එකක් එකතු කරන්න මේ array එකට object එකක් දාන්න.
+   zones: label එකක්, x/y position (0-400 viewBox coordinates), shape SVG string එකක්.
+   ===================================================================== */
+var diagrams = [
+  {
+    id: 'heart', title: 'හදවත (Heart)',
+    shapes:
+      '<ellipse cx="200" cy="220" rx="150" ry="130" fill="#0E1C2E" stroke="#23D9A0" stroke-width="2"/>' +
+      '<path d="M120 140 Q90 100 130 80 Q170 90 160 150 Z" fill="#FF7A56" opacity="0.85"/>' +
+      '<path d="M280 140 Q310 100 270 80 Q230 90 240 150 Z" fill="#4CC3F0" opacity="0.85"/>' +
+      '<path d="M110 170 Q80 260 160 300 Q210 280 190 190 Z" fill="#FF7A56" opacity="0.6"/>' +
+      '<path d="M290 170 Q320 260 240 300 Q190 280 210 190 Z" fill="#4CC3F0" opacity="0.6"/>' +
+      '<rect x="180" y="60" width="18" height="60" rx="8" fill="#F2C463"/>' +
+      '<rect x="205" y="55" width="16" height="55" rx="8" fill="#23D9A0" transform="rotate(15 213 82)"/>',
+    zones: [
+      { x: 135, y: 115, label: 'දකුණු කර්ණිකාව (Right atrium)' },
+      { x: 255, y: 115, label: 'වම් කර්ණිකාව (Left atrium)' },
+      { x: 145, y: 235, label: 'දකුණු කෝෂිකාව (Right ventricle)' },
+      { x: 255, y: 235, label: 'වම් කෝෂිකාව (Left ventricle)' },
+      { x: 189, y: 70, label: 'Vena cava' },
+      { x: 213, y: 65, label: 'Aorta' }
+    ]
+  },
+  {
+    id: 'nephron', title: 'වෘක්කානුව  (Nephron)',
+    shapes:
+      '<path d="M100 90 Q60 90 60 130 Q60 165 100 165 Q140 165 150 130 L200 130 Q230 130 230 170 Q230 250 200 260 L160 260 Q130 260 130 300 Q130 340 170 340 L260 340 Q300 340 300 300 L300 200"' +
+      ' fill="none" stroke="#23D9A0" stroke-width="10" stroke-linecap="round"/>' +
+      '<circle cx="90" cy="128" r="22" fill="#FF7A56"/>',
+    zones: [
+      { x: 90, y: 128, label: 'ගුජ්ජිකාව (Glomerulus)' },
+      { x: 100, y: 90, label: "බ්‍රෝමන් ප්‍රාවරනය (Bowman's capsule)" },
+      { x: 190, y: 130, label: 'අවිදුර සංවලිත නාලිකා  (Proximal tubule)' },
+      { x: 230, y: 220, label: 'හෙන්ලේ පුඩුව  (Loop of Henle)' },
+      { x: 160, y: 300, label: 'විදුර සංවලිත නාලිකාව (Distal tubule)' },
+      { x: 300, y: 260, label: 'සංග්‍රාහක ප්‍රනාලය  (Collecting duct)' }
+    ]
+  },
+  {
+    id: 'root', title: 'මුල් හරස්කඩ (Root cross-section)',
+    shapes:
+      '<circle cx="200" cy="200" r="160" fill="#0E1C2E" stroke="#23D9A0" stroke-width="2"/>' +
+      '<circle cx="200" cy="200" r="120" fill="none" stroke="#4CC3F0" stroke-width="2"/>' +
+      '<circle cx="200" cy="200" r="75" fill="none" stroke="#F2C463" stroke-width="2"/>' +
+      '<circle cx="200" cy="200" r="60" fill="none" stroke="#FF7A56" stroke-width="2"/>' +
+      '<path d="M200 160 L212 200 L200 240 L188 200 Z" fill="#23D9A0"/>' +
+      '<circle cx="175" cy="185" r="7" fill="#F2C463"/><circle cx="225" cy="185" r="7" fill="#F2C463"/>' +
+      '<circle cx="175" cy="215" r="7" fill="#F2C463"/><circle cx="225" cy="215" r="7" fill="#F2C463"/>',
+    zones: [
+      { x: 200, y: 40, label: 'අපිචර්මය (Epidermis)' },
+      { x: 200, y: 82, label: 'බාහික පටකය (Cortex)' },
+      { x: 200, y: 127, label: 'අන්තශ්චර්මය (Endodermis)' },
+      { x: 200, y: 143, label: 'පරිචක්‍රය (Pericycle)' },
+      { x: 200, y: 190, label: 'සයිලම් (Xylem)' },
+      { x: 175, y: 185, label: 'ෆ්ලෝයම් (Phloem)' }
+    ]
+  }
+];
+
+var dgTabs = document.getElementById('dgTabs');
+var dgSvg = document.getElementById('dgSvg');
+var dgWordbank = document.getElementById('dgWordbank');
+var dgStatus = document.getElementById('dgStatus');
+var dgReset = document.getElementById('dgReset');
+
+var currentDiagram = diagrams[0];
+var placed = {};
+var selectedLabel = null;
+
+function renderTabs() {
+  dgTabs.innerHTML = '';
+  diagrams.forEach(function (d) {
+    var btn = document.createElement('button');
+    btn.className = 'lesson-tab' + (d.id === currentDiagram.id ? ' active' : '');
+    btn.textContent = d.title;
+    btn.onclick = function () { loadDiagram(d); };
+    dgTabs.appendChild(btn);
+  });
+}
+
+function loadDiagram(d) {
+  currentDiagram = d;
+  placed = {};
+  selectedLabel = null;
+  renderTabs();
+  renderDiagram();
+}
+
+function renderDiagram() {
+  dgSvg.innerHTML = currentDiagram.shapes;
+  document.querySelectorAll('.dg-zone').forEach(function (z) { z.remove(); });
+
+  var stage = document.getElementById('dgStage');
+  stage.querySelectorAll('.dg-zone').forEach(function (z) { z.remove(); });
+
+  currentDiagram.zones.forEach(function (zone, i) {
+    var el = document.createElement('div');
+    el.className = 'dg-zone' + (placed[i] ? ' filled' : '');
+    el.style.left = (zone.x / 400 * 100) + '%';
+    el.style.top = (zone.y / 400 * 100) + '%';
+    el.textContent = placed[i] ? '✓' : (i + 1);
+    el.title = placed[i] ? zone.label : '';
+    el.addEventListener('click', function () { attemptPlace(i, el); });
+    stage.appendChild(el);
+  });
+
+  var labels = currentDiagram.zones.map(function (z, i) { return { label: z.label, index: i }; });
+  var shuffled = labels.slice().sort(function () { return Math.random() - 0.5; });
+
+  dgWordbank.innerHTML = '';
+  shuffled.forEach(function (item) {
+    var chip = document.createElement('button');
+    chip.className = 'dg-chip' + (isLabelUsed(item.index) ? ' used' : '');
+    chip.textContent = item.label;
+    chip.disabled = isLabelUsed(item.index);
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('.dg-chip').forEach(function (c) { c.classList.remove('selected'); });
+      chip.classList.add('selected');
+      selectedLabel = item.index;
+    });
+    dgWordbank.appendChild(chip);
+  });
+
+  updateStatus();
+}
+
+function isLabelUsed(labelIndex) {
+  return Object.values(placed).indexOf(labelIndex) !== -1;
+}
+
+function attemptPlace(zoneIndex, zoneEl) {
+  if (placed[zoneIndex] !== undefined) return;
+  if (selectedLabel === null) {
+    dgStatus.textContent = 'මුලින් පහළින් label එකක් tap කරන්න.';
+    return;
+  }
+  if (selectedLabel === zoneIndex) {
+    placed[zoneIndex] = selectedLabel;
+    selectedLabel = null;
+    renderDiagram();
+  } else {
+    zoneEl.classList.add('wrong-flash');
+    setTimeout(function () { zoneEl.classList.remove('wrong-flash'); }, 400);
+    dgStatus.textContent = 'නෑ, ආයෙත් try කරන්න.';
+  }
+}
+
+function updateStatus() {
+  var total = currentDiagram.zones.length;
+  var done = Object.keys(placed).length;
+  dgStatus.textContent = done === total
+    ? 'නියමයි! ' + currentDiagram.title + ' සම්පූර්ණයෙන්ම label කරා! 🎉'
+    : done + ' / ' + total + ' labels දාලා ඉවරයි';
+}
+
+dgReset.onclick = function () { loadDiagram(currentDiagram); };
+
+renderTabs();
+renderDiagram();
+</script>
+</body>
+</html>

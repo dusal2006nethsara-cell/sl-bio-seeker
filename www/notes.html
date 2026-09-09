@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notes — Bio Seeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#23D9A0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+      <a href="videos.html">Videos</a>
+      <a href="notes.html" class="active">Notes</a>
+      <a href="quizzes.html">Quiz</a>
+      <a href="exam.html">Exam Mode</a>
+      <a href="diagrams.html">Diagrams</a>
+      <a href="tools.html">Tools</a>
+      <a href="focus.html">Deep Focus</a>
+      <a class="btn btn-coral nav-cta" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom:8px;">
+    <div class="wrap">
+      <span class="eyebrow">Short notes</span>
+      <h1 style="font-size:clamp(28px,4vw,40px);">Exam එකට කලින් fast revise</h1>
+      <p class="lead" style="max-width:600px;">Chapter එකක් දිග notes කියවන්න වෙලාව නැත්නම්, scan කරපු quick note ටික මෙතන බලන්න. Image note එකක් click කරලා full size එකෙන් බලන්න පුළුවන්, PDF note එකක් click කලාම browser එකේම open වෙනවා.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="grid-3" id="notesGrid"></div>
+      <div class="tool-box center" id="notesEmpty" style="display:none;">
+        <p style="margin:0;">Notes එකතු වෙමින් ඉන්නවා — ඉක්මනින් මෙතනට එනවා!</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- lightbox for full-size note view -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(6,11,18,0.9);z-index:100;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;">
+  <img id="lightboxImg" src="" alt="" style="max-width:min(700px,92vw);max-height:88vh;border-radius:var(--radius);box-shadow:var(--glow);">
+</div>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note">Made for A/L Biology students, Sri Lanka 🇱🇰</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Short notes gallery ----------
+   මෙතනට note එකක් එකතු කරන්න:
+
+   IMAGE note එකක් නම්:
+   1. image එක assets/notes/ folder එකට දාන්න
+   2. shortNotes array එකට මේ විදියට object එකක් දාන්න:
+      { type: 'image', tag: 'ජාන විද්‍යාව', title: 'Punnett square quick note', file: 'assets/notes/genetics-1.jpg' }
+
+   PDF note එකක් — Google Drive link එකෙන් (recommend කරන්නෙ මේකයි, files upload කරන්න ඕන නෑ):
+   1. PDF එක Google Drive එකට upload කරන්න
+   2. PDF එක right-click → Share → "General access" එක "Anyone with the link" කරන්න (Viewer)
+   3. "Copy link" click කරලා, ලැබෙන link එකම (https://drive.google.com/file/d/XXXX/view?usp=sharing වගේ) පහළ file: එකට paste කරන්න
+      { type: 'pdf', tag: 'ජාන විද්‍යාව', title: 'Genetics chapter short note', file: 'https://drive.google.com/file/d/XXXXXXXXXXXX/view?usp=sharing' }
+
+   (PDF එක site එකේම host කරන්නත් පුළුවන් — assets/notes/ එකට දාලා local path එකක් දුන්නත් වැඩ කරනවා.)
+------------------------------------------------ */
+var shortNotes = [
+  { type: 'pdf', tag: 'අස්ති පද්දතිය ', title: 'Cell structure short note', file: 'https://drive.google.com/file/d/1oSyaNd4VkiEu-iROhNWV5u3odl70ELrb/view?usp=sharing' },
+  { type: 'pdf', tag: 'සංසරන පද්දතිය ', title: 'Cell structure short note', file: 'https://drive.google.com/file/d/1VdMPYxfnUj2EHQ5ZMPUa_0B0Hl6D9d5X/view?usp=sharing' },
+  { type: 'pdf', tag: 'ව්‍යවහාරික විද්‍යාව', title: 'Cell structure short note', file: 'https://drive.google.com/file/d/11D6K-VwUt9fxwuV6Cse05-smP9bpIsl8/view?usp=sharing' },
+  { type: 'pdf', tag: 'ඇස', title: 'Cell structure short note', file: 'https://drive.google.com/file/d/1XB__BvZ-P-8PBF5VOAucvkpWDOLfCXEW/view?usp=sharing' },
+];
+
+var grid = document.getElementById('notesGrid');
+var emptyMsg = document.getElementById('notesEmpty');
+var lightbox = document.getElementById('lightbox');
+var lightboxImg = document.getElementById('lightboxImg');
+
+if (shortNotes.length === 0) {
+  grid.style.display = 'none';
+  emptyMsg.style.display = 'block';
+} else {
+  shortNotes.forEach(function (note) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.style.cursor = note.type === 'pdf' ? 'pointer' : 'zoom-in';
+
+    if (note.type === 'pdf') {
+      card.innerHTML =
+        '<span class="note-tag">' + note.tag + '</span>' +
+        '<div style="display:flex;align-items:center;justify-content:center;height:140px;background:var(--paper);border-radius:var(--radius-sm);margin:12px 0;">' +
+        '<span style="font-size:40px;">📄</span>' +
+        '</div>' +
+        '<h3 style="font-size:16px;margin-bottom:4px;">' + note.title + '</h3>' +
+        '<span class="card-link">PDF එක බලමු →</span>';
+      card.addEventListener('click', function () {
+        window.open(note.file, '_blank');
+      });
+    } else {
+      card.innerHTML =
+        '<span class="note-tag">' + note.tag + '</span>' +
+        '<img src="' + note.file + '" alt="' + note.title + '" style="width:100%;border-radius:var(--radius-sm);margin:12px 0;">' +
+        '<h3 style="font-size:16px;margin-bottom:0;">' + note.title + '</h3>';
+      card.addEventListener('click', function () {
+        lightboxImg.src = note.file;
+        lightboxImg.alt = note.title;
+        lightbox.style.display = 'flex';
+      });
+    }
+    grid.appendChild(card);
+  });
+}
+
+lightbox.addEventListener('click', function () {
+  lightbox.style.display = 'none';
+  lightboxImg.src = '';
+});
+</script>
+</body>
+</html>

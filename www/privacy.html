@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Bio Seeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="wrap" style="max-width:720px;">
+      <span class="eyebrow">Privacy Policy</span>
+      <h1 style="font-size:clamp(26px,4vw,36px);">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</h1>
+      <p style="font-size:13px;color:var(--ink-soft);">අවසන් වරට update කලේ: 2026 සැප්තැම්බර්</p>
+
+      <div class="card" style="margin-top:24px;">
+        <h3>Account/Login නෑ</h3>
+        <p style="margin-bottom:0;">Bio Seeker එකට login වෙන්න ඕන නෑ — content ඔක්කොම (videos, notes, quiz, tools) කිසිම account එකක් නැතුවම access කරගන්න පුළුවන්. ඔයාගේ email, name, photo — කිසිම personal data එකක් අපි collect කරන්නෙ, request කරන්නෙ, හෝ store කරන්නෙ නෑ.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Quiz progress</h3>
+        <p style="margin-bottom:0;">Quiz scores සහ progress (stars ආදී) ඔයාගේම browser එකේ (localStorage) විතරයි save වෙන්නෙ — අපේ servers වලට කිසිම data එකක් යන්නෙ නෑ. Browser එක වෙනස් කලොත් හෝ cache clear කලොත්, progress එක reset වෙනවා.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>අපි එකතු නොකරන දේ</h3>
+        <p style="margin-bottom:0;">NIC number, phone number, address, school name, ගෙවීම් විස්තර (payment information), health data — මේවායින් කිසිවක් Bio Seeker request කරන්නෙ නෑ, store කරන්නෙ නෑ.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>ඔයාගේ data අයින් කරගන්න</h3>
+        <p style="margin-bottom:0;">ඔයාගේ account එකයි ඒකට අදාළ data එකයි delete කරගන්න ඕනනම්, අපිට YouTube channel එකේ comment එකකින් හෝ message එකකින් අමතන්න.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>අප අමතන්න</h3>
+        <p style="margin-bottom:0;">මේ ප්‍රතිපත්තිය ගැන ප්‍රශ්නයක් තියෙනවනම්, <a href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">SL Bio Seeker YouTube channel</a> එකෙන් අපිව අමතන්න.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

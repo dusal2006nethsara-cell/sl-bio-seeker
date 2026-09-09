@@ -1,0 +1,13 @@
+{
+  "name": "Bio Seeker — A/L Biology",
+  "short_name": "Bio Seeker",
+  "description": "SL Bio Seeker සමඟ උසස් පෙළ ජීව විද්‍යාව — videos, notes, quiz, interactive tools.",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#0A1220",
+  "theme_color": "#23D9A0",
+  "icons": [
+    { "src": "assets/logo.png", "sizes": "225x225", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

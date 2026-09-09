@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools — Bio Seeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+Sinhala:wght@400;500;700&family=Noto+Serif+Sinhala:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#23D9A0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/logo.png" alt="SL Bio Seeker logo">
+      <span class="brand-word">Bio <em>Seeker</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">මුල් පිටුව</a>
+      <a href="videos.html">Videos</a>
+      <a href="notes.html">Notes</a>
+      <a href="quizzes.html">Quiz</a>
+      <a href="exam.html">Exam Mode</a>
+      <a href="diagrams.html">Diagrams</a>
+      <a href="tools.html" class="active">Tools</a>
+      <a href="focus.html">Deep Focus</a>
+      <a class="btn btn-coral nav-cta" href="https://youtube.com/@alacademyseeker?si=mVuXJQLKd8rySnll" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+    <button class="nav-toggle" aria-label="මෙනුව විවෘත කරන්න">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom:8px;">
+    <div class="wrap">
+      <span class="eyebrow">Interactive tools</span>
+      <h1 style="font-size:clamp(28px,4vw,40px);">කියවනවට වඩා, කරලා බලමු</h1>
+      <p class="lead" style="max-width:600px;">Biology concept ටික hands-on විදියට experience කරන්න පුළුවන් tools තුනක්.</p>
+    </div>
+  </section>
+
+  <!-- Punnett Square -->
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">01 · Genetics</span>
+        <h2>Punnett Square calculator</h2>
+        <p>දෙමව්පියන්ගේ genotype එක තෝරලා, දරුවන්ගේ genotype/phenotype ratio බලන්න.</p>
+      </div>
+      <div class="tool-box">
+        <div class="select-row">
+          <div class="select-field">
+            <label>දෙමව්පියා 1</label>
+            <select id="parent1">
+              <option value="TT">TT (උස — pure)</option>
+              <option value="Tt" selected>Tt (උස — hybrid)</option>
+              <option value="tt">tt (කෙටි)</option>
+            </select>
+          </div>
+          <div class="select-field">
+            <label>දෙමව්පියා 2</label>
+            <select id="parent2">
+              <option value="TT">TT (උස — pure)</option>
+              <option value="Tt" selected>Tt (උස — hybrid)</option>
+              <option value="tt">tt (කෙටි)</option>
+            </select>
+          </div>
+        </div>
+        <div class="center" style="overflow-x:auto;">
+          <table class="punnett" id="punnettTable"></table>
+        </div>
+        <div class="ratio-grid">
+          <div class="ratio-card"><div class="k">Genotype ratio</div><div class="v" id="genoRatio">-</div></div>
+          <div class="ratio-card"><div class="k">Phenotype ratio</div><div class="v" id="phenoRatio">-</div></div>
+          <div class="ratio-card"><div class="k">Simplified ratio</div><div class="v" id="simpleRatio">-</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blood group calculator -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">02 · Genetics</span>
+        <h2>රුධිර වර්ග (ABO Blood Group) calculator</h2>
+        <p>Codominance concept එක — දෙමව්පියන්ගේ genotype එකෙන් possible රුධිර වර්ග බලමු. (I<sup>A</sup>, I<sup>B</sup> dominant, i recessive)</p>
+      </div>
+      <div class="tool-box">
+        <div class="select-row">
+          <div class="select-field">
+            <label>දෙමව්පියා 1</label>
+            <select id="bParent1">
+              <option value="AA">I<sup>A</sup>I<sup>A</sup> (A)</option>
+              <option value="Ai" selected>I<sup>A</sup>i (A)</option>
+              <option value="BB">I<sup>B</sup>I<sup>B</sup> (B)</option>
+              <option value="Bi">I<sup>B</sup>i (B)</option>
+              <option value="AB">I<sup>A</sup>I<sup>B</sup> (AB)</option>
+              <option value="ii">ii (O)</option>
+            </select>
+          </div>
+          <div class="select-field">
+            <label>දෙමව්පියා 2</label>
+            <select id="bParent2">
+              <option value="AA">I<sup>A</sup>I<sup>A</sup> (A)</option>
+              <option value="Ai">I<sup>A</sup>i (A)</option>
+              <option value="BB">I<sup>B</sup>I<sup>B</sup> (B)</option>
+              <option value="Bi">I<sup>B</sup>i (B)</option>
+              <option value="AB">I<sup>A</sup>I<sup>B</sup> (AB)</option>
+              <option value="ii" selected>ii (O)</option>
+            </select>
+          </div>
+        </div>
+        <div class="center" style="overflow-x:auto;">
+          <table class="punnett" id="bloodTable"></table>
+        </div>
+        <div class="ratio-grid" style="grid-template-columns:1fr;">
+          <div class="ratio-card"><div class="k">හැකි රුධිර වර්ග (Possible phenotypes)</div><div class="v" id="bloodPheno">-</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sex-linked inheritance -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">03 · Genetics</span>
+        <h2>Sex-linked inheritance — වර්ණාන්ධතාවය (Colour blindness)</h2>
+        <p>X-linked recessive trait එකක් — දෙමව්පියන්ගේ genotype එකෙන් දරුවන්ගේ ලිංගය සහ ලක්ෂණය දෙකම බලමු.</p>
+      </div>
+      <div class="tool-box">
+        <div class="select-row">
+          <div class="select-field">
+            <label>මව (Mother)</label>
+            <select id="sParent1">
+              <option value="XBXB">X<sup>B</sup>X<sup>B</sup> (සාමාන්‍ය)</option>
+              <option value="XBXb" selected>X<sup>B</sup>X<sup>b</sup> (Carrier)</option>
+              <option value="XbXb">X<sup>b</sup>X<sup>b</sup> (වර්ණාන්ධ)</option>
+            </select>
+          </div>
+          <div class="select-field">
+            <label>පියා (Father)</label>
+            <select id="sParent2">
+              <option value="XBY" selected>X<sup>B</sup>Y (සාමාන්‍ය)</option>
+              <option value="XbY">X<sup>b</sup>Y (වර්ණාන්ධ)</option>
+            </select>
+          </div>
+        </div>
+        <div class="center" style="overflow-x:auto;">
+          <table class="punnett" id="sexTable"></table>
+        </div>
+        <div class="ratio-grid" style="grid-template-columns:1fr;">
+          <div class="ratio-card"><div class="k">දරුවන් — ලිංගය සහ ලක්ෂණය</div><div class="v" id="sexPheno" style="font-size:14px;font-weight:500;">-</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cell explorer -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">04 · Cell biology</span>
+        <h2>සත්ව සෛලය explore කරමු</h2>
+        <p>සෛලයේ කොටසක් click කරලා, ඒකේ function එක බලන්න.</p>
+      </div>
+      <div class="tool-box">
+        <div class="cell-explorer">
+          <svg viewBox="0 0 400 320" role="img" aria-label="සත්ව සෛල ව්‍යුහය">
+            <ellipse cx="200" cy="160" rx="180" ry="140" fill="#0E1C2E" stroke="#23D9A0" stroke-width="2"/>
+            <circle class="cell-part" data-part="nucleus" cx="190" cy="150" r="55" fill="#1BA57E" opacity="0.9"/>
+            <circle class="cell-part" data-part="nucleolus" cx="190" cy="150" r="18" fill="#0B6E52"/>
+            <ellipse class="cell-part" data-part="mitochondria" cx="90" cy="220" rx="30" ry="16" fill="#FF7A56" opacity="0.9"/>
+            <ellipse class="cell-part" data-part="mitochondria2" cx="300" cy="90" rx="30" ry="16" fill="#FF7A56" opacity="0.9"/>
+            <circle class="cell-part" data-part="ribosome" cx="300" cy="220" r="7" fill="#F2C463"/>
+            <circle class="cell-part" data-part="ribosome2" cx="315" cy="235" r="7" fill="#F2C463"/>
+            <circle class="cell-part" data-part="ribosome3" cx="285" cy="235" r="7" fill="#F2C463"/>
+            <path class="cell-part" data-part="golgi" d="M80 100 q40 -8 40 8 q0 16 -40 8 q40 -4 40 8 q0 12 -40 4" fill="none" stroke="#4CC3F0" stroke-width="4" stroke-linecap="round"/>
+            <ellipse class="cell-part" data-part="membrane" cx="200" cy="160" rx="180" ry="140" fill="none" stroke="#23D9A0" stroke-width="4"/>
+          </svg>
+          <div class="cell-info" id="cellInfo">
+            <div class="k">Tip</div>
+            <p style="margin:6px 0 0;">සෛලයේ ඕන කොටසක් click කරන්න — විස්තරය මෙතන පේනවා.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mitosis stepper -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">05 · Cell division</span>
+        <h2>Mitosis — අදියරෙන් අදියර</h2>
+        <p>Mitosis වල ප්‍රධාන අදියර 4 මේ අනුපිළිවෙළින්ම සිද්ධ වෙනවා.</p>
+      </div>
+      <div class="stepper">
+        <div class="stepper-dots" id="stepDots"></div>
+        <h3 id="stepTitle" style="margin-bottom:8px;"></h3>
+        <p id="stepDesc" style="margin-bottom:0;"></p>
+        <div class="stepper-nav">
+          <button class="btn" id="prevStep">← කලින්</button>
+          <button class="btn btn-primary" id="nextStep">ඊළඟට →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="footer-note">© <span id="year"></span> Bio Seeker — SL Bio Seeker චැනල් එකට අනුබද්ධයි.</span>
+    <span class="footer-note">Made for A/L Biology students, Sri Lanka 🇱🇰</span>
+    <span class="footer-note"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Punnett square ---------- */
+var p1Sel = document.getElementById('parent1');
+var p2Sel = document.getElementById('parent2');
+var table = document.getElementById('punnettTable');
+var genoRatioEl = document.getElementById('genoRatio');
+var phenoRatioEl = document.getElementById('phenoRatio');
+var simpleRatioEl = document.getElementById('simpleRatio');
+
+function sortGeno(g) {
+  var chars = g.split('');
+  chars.sort(function (a, b) {
+    var aUp = a === a.toUpperCase();
+    var bUp = b === b.toUpperCase();
+    if (aUp && !bUp) return -1;
+    if (!aUp && bUp) return 1;
+    return 0;
+  });
+  return chars.join('');
+}
+
+function computePunnett() {
+  var p1 = p1Sel.value.split('');
+  var p2 = p2Sel.value.split('');
+  table.innerHTML = '';
+
+  var headRow = document.createElement('tr');
+  headRow.appendChild(document.createElement('th'));
+  p2.forEach(function (a) {
+    var th = document.createElement('th');
+    th.textContent = a;
+    headRow.appendChild(th);
+  });
+  table.appendChild(headRow);
+
+  var results = {};
+  p1.forEach(function (a1) {
+    var row = document.createElement('tr');
+    var th = document.createElement('th');
+    th.textContent = a1;
+    row.appendChild(th);
+    p2.forEach(function (a2) {
+      var geno = sortGeno(a1 + a2);
+      results[geno] = (results[geno] || 0) + 1;
+      var td = document.createElement('td');
+      td.textContent = geno;
+      td.className = geno.indexOf('T') !== -1 ? 'geno-tall' : 'geno-short';
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+
+  var genoStr = Object.keys(results).map(function (g) { return g + ':' + results[g]; }).join(', ');
+  genoRatioEl.textContent = genoStr;
+
+  var tall = 0, short = 0;
+  Object.keys(results).forEach(function (g) {
+    if (g.indexOf('T') !== -1) tall += results[g]; else short += results[g];
+  });
+  phenoRatioEl.textContent = 'උස ' + tall + ' : කෙටි ' + short;
+
+  function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+  var d = short === 0 ? tall : gcd(tall, short);
+  simpleRatioEl.textContent = (tall / d) + ' : ' + (short / d);
+}
+p1Sel.onchange = computePunnett;
+p2Sel.onchange = computePunnett;
+computePunnett();
+
+/* ---------- Blood group calculator ---------- */
+var bp1Sel = document.getElementById('bParent1');
+var bp2Sel = document.getElementById('bParent2');
+var bloodTable = document.getElementById('bloodTable');
+var bloodPhenoEl = document.getElementById('bloodPheno');
+
+var bloodAlleles = {
+  AA: ['IA', 'IA'], Ai: ['IA', 'i'],
+  BB: ['IB', 'IB'], Bi: ['IB', 'i'],
+  AB: ['IA', 'IB'], ii: ['i', 'i']
+};
+var alleleLabel = { IA: 'I\u1D2C', IB: 'I\u1D2E', i: 'i' };
+
+function genoToPhenotype(pair) {
+  var has = { IA: pair.indexOf('IA') !== -1, IB: pair.indexOf('IB') !== -1 };
+  if (has.IA && has.IB) return 'AB';
+  if (has.IA) return 'A';
+  if (has.IB) return 'B';
+  return 'O';
+}
+
+function computeBlood() {
+  var p1 = bloodAlleles[bp1Sel.value];
+  var p2 = bloodAlleles[bp2Sel.value];
+  bloodTable.innerHTML = '';
+
+  var headRow = document.createElement('tr');
+  headRow.appendChild(document.createElement('th'));
+  p2.forEach(function (a) {
+    var th = document.createElement('th');
+    th.innerHTML = alleleLabel[a];
+    headRow.appendChild(th);
+  });
+  bloodTable.appendChild(headRow);
+
+  var phenos = {};
+  p1.forEach(function (a1) {
+    var row = document.createElement('tr');
+    var th = document.createElement('th');
+    th.innerHTML = alleleLabel[a1];
+    row.appendChild(th);
+    p2.forEach(function (a2) {
+      var pair = [a1, a2];
+      var pheno = genoToPhenotype(pair);
+      phenos[pheno] = (phenos[pheno] || 0) + 1;
+      var td = document.createElement('td');
+      td.innerHTML = alleleLabel[a1] + alleleLabel[a2];
+      td.className = pheno === 'O' ? 'geno-short' : 'geno-tall';
+      row.appendChild(td);
+    });
+    bloodTable.appendChild(row);
+  });
+
+  bloodPhenoEl.textContent = Object.keys(phenos).map(function (p) {
+    return p + ' (' + phenos[p] + '/4)';
+  }).join('  ·  ');
+}
+bp1Sel.onchange = computeBlood;
+bp2Sel.onchange = computeBlood;
+computeBlood();
+
+/* ---------- Sex-linked inheritance ---------- */
+var sp1Sel = document.getElementById('sParent1');
+var sp2Sel = document.getElementById('sParent2');
+var sexTable = document.getElementById('sexTable');
+var sexPhenoEl = document.getElementById('sexPheno');
+
+var sexAlleles = {
+  XBXB: ['XB', 'XB'], XBXb: ['XB', 'Xb'], XbXb: ['Xb', 'Xb'],
+  XBY: ['XB', 'Y'], XbY: ['Xb', 'Y']
+};
+var sexLabel = { XB: 'X\u1D2E', Xb: 'X\u1D47', Y: 'Y' };
+
+function sexPhenotype(pair) {
+  var isMale = pair.indexOf('Y') !== -1;
+  var hasXb = pair.indexOf('Xb') !== -1;
+  var hasXB = pair.indexOf('XB') !== -1;
+  if (isMale) {
+    return hasXb ? 'පිරිමි — වර්ණාන්ධ' : 'පිරිමි — සාමාන්‍ය';
+  }
+  if (hasXb && hasXB) return 'ගැහැණු — Carrier (සාමාන්‍ය පේනවා)';
+  if (hasXb) return 'ගැහැණු — වර්ණාන්ධ';
+  return 'ගැහැණු — සාමාන්‍ය';
+}
+
+function computeSex() {
+  var mother = sexAlleles[sp1Sel.value];
+  var father = sexAlleles[sp2Sel.value];
+  sexTable.innerHTML = '';
+
+  var headRow = document.createElement('tr');
+  headRow.appendChild(document.createElement('th'));
+  father.forEach(function (a) {
+    var th = document.createElement('th');
+    th.innerHTML = sexLabel[a];
+    headRow.appendChild(th);
+  });
+  sexTable.appendChild(headRow);
+
+  var results = [];
+  mother.forEach(function (a1) {
+    var row = document.createElement('tr');
+    var th = document.createElement('th');
+    th.innerHTML = sexLabel[a1];
+    row.appendChild(th);
+    father.forEach(function (a2) {
+      var pair = [a1, a2];
+      var pheno = sexPhenotype(pair);
+      results.push(pheno);
+      var td = document.createElement('td');
+      td.innerHTML = sexLabel[a1] + sexLabel[a2];
+      td.className = pheno.indexOf('වර්ණාන්ධ') !== -1 && pheno.indexOf('Carrier') === -1 ? 'geno-short' : 'geno-tall';
+      row.appendChild(td);
+    });
+    sexTable.appendChild(row);
+  });
+
+  var counts = {};
+  results.forEach(function (r) { counts[r] = (counts[r] || 0) + 1; });
+  sexPhenoEl.textContent = Object.keys(counts).map(function (r) {
+    return r + ' (' + counts[r] + '/4)';
+  }).join('  ·  ');
+}
+sp1Sel.onchange = computeSex;
+sp2Sel.onchange = computeSex;
+computeSex();
+
+/* ---------- Cell explorer ---------- */
+var cellData = {
+  nucleus: { name: 'න්‍යෂ්ටිය (Nucleus)', desc: 'සෛලයේ DNA තියෙන තැන. සෛලයේ activities සියල්ලම control කරන්නෙ මෙතනින්.' },
+  nucleolus: { name: 'Nucleolus', desc: 'Ribosome හදන කොටස, න්‍යෂ්ටිය ඇතුලෙ තියෙනවා.' },
+  mitochondria: { name: 'Mitochondria', desc: 'Respiration හරහා ATP energy හදනවා — cell power house එක.' },
+  mitochondria2: { name: 'Mitochondria', desc: 'Respiration හරහා ATP energy හදනවා — cell power house එක.' },
+  ribosome: { name: 'Ribosome', desc: 'Protein synthesis සිද්ධ වෙන්නෙ මෙතන.' },
+  ribosome2: { name: 'Ribosome', desc: 'Protein synthesis සිද්ධ වෙන්නෙ මෙතන.' },
+  ribosome3: { name: 'Ribosome', desc: 'Protein synthesis සිද්ධ වෙන්නෙ මෙතන.' },
+  golgi: { name: 'Golgi body', desc: 'Protein packaging සහ sorting කරලා, ඕන තැනට pass කරනවා.' },
+  membrane: { name: 'සෛල පටලය (Cell membrane)', desc: 'සෛලය වටේට ආරක්ෂක බාධකයක්. මොනවද ඇතුල් වෙන්නෙ, පිට වෙන්නෙ කියලා control කරනවා.' }
+};
+var cellInfo = document.getElementById('cellInfo');
+document.querySelectorAll('.cell-part').forEach(function (el) {
+  el.addEventListener('click', function () {
+    var d = cellData[el.getAttribute('data-part')];
+    if (!d) return;
+    cellInfo.innerHTML = '<div class="k">' + d.name + '</div><p style="margin:6px 0 0;">' + d.desc + '</p>';
+  });
+});
+
+/* ---------- Mitosis stepper ---------- */
+var stages = [
+  { title: '1. Prophase', desc: 'Chromatin condense වෙලා chromosome විදියට පේන්න පටන් ගන්නවා. Nuclear membrane එක breakdown වෙනවා.' },
+  { title: '2. Metaphase', desc: 'Chromosomes සෛලයේ මැදට (equator එකට) align වෙනවා, spindle fibers connect වෙනවා.' },
+  { title: '3. Anaphase', desc: 'Sister chromatids වෙන් වෙලා, opposite poles දෙකට move වෙනවා.' },
+  { title: '4. Telophase', desc: 'Nuclear membrane අලුතින් හැදිලා, cell දෙකකට බෙදෙන්න පටන් ගන්නවා (cytokinesis).' }
+];
+var stepIndex = 0;
+var dotsEl = document.getElementById('stepDots');
+var stepTitle = document.getElementById('stepTitle');
+var stepDesc = document.getElementById('stepDesc');
+var prevBtn = document.getElementById('prevStep');
+var nextBtn = document.getElementById('nextStep');
+
+stages.forEach(function () {
+  var dot = document.createElement('span');
+  dotsEl.appendChild(dot);
+});
+
+function renderStep() {
+  stepTitle.textContent = stages[stepIndex].title;
+  stepDesc.textContent = stages[stepIndex].desc;
+  Array.from(dotsEl.children).forEach(function (dot, i) {
+    dot.className = i === stepIndex ? 'on' : '';
+  });
+  prevBtn.disabled = stepIndex === 0;
+  nextBtn.textContent = stepIndex === stages.length - 1 ? 'මුල සිට ↻' : 'ඊළඟට →';
+}
+prevBtn.onclick = function () { if (stepIndex > 0) { stepIndex--; renderStep(); } };
+nextBtn.onclick = function () {
+  if (stepIndex === stages.length - 1) { stepIndex = 0; } else { stepIndex++; }
+  renderStep();
+};
+renderStep();
+</script>
+</body>
+</html>
