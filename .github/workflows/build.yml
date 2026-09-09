@@ -27,21 +27,16 @@ jobs:
       - name: Install Cordova
         run: npm install -g cordova
 
-      - name: Build APK & AAB
+      - name: Build Debug APK
         run: |
           cordova create tempcom com.bioseeker.app BioSeeker
           cp -r www/* tempcom/www/
           cd tempcom
           cordova platform add android
-          
-          # Direct APK build Command
-          cordova build android --release -- --packageType=apk
-          
-          # Direct AAB build Command
-          cordova build android --release -- --packageType=bundle
+          cordova build android --debug
 
-      - name: Upload Build Artifacts
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: BioSeeker-App-Files
-          path: tempcom/platforms/android/app/build/outputs/
+          name: BioSeeker-Debug-APK
+          path: tempcom/platforms/android/app/build/outputs/apk/debug/app-debug.apk
