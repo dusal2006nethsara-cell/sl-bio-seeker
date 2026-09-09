@@ -19,19 +19,25 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-      - name: Install Bubblewrap CLI
-        run: npm install -g @bubblewrap/cli
+      - name: Install Cordova
+        run: npm install -g cordova
 
-      - name: Build APK using Bubblewrap
+      - name: Initialize Project and Build APK
         run: |
-          yes | bubblewrap init --manifest=www/manifest.json
-          bubblewrap build
+          cordova create tempcom com.bioseeker.app BioSeeker
+          cp -r www/* tempcom/www/
+          cd tempcom
+          cordova platform add android
+          cordova build android --release
+          cp platforms/android/app/build/outputs/apk/release/*.apk ../app-release.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: App-Release-APK
-          path: ./*.apke/*.apk
+          path: app-release.apk
