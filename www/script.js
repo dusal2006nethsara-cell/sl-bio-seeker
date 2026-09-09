@@ -42,3 +42,29 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   document.body.insertBefore(field, document.body.firstChild);
 });
+
+/* Google AdMob Integration */
+document.addEventListener('deviceready', function () {
+  var admobid = {
+    banner: 'ca-app-pub-4099613962859022/3260213371',
+    interstitial: 'ca-app-pub-4099613962859022/6876024752'
+  };
+
+  if (window.admob) {
+    // Banner Ad එක පල්ලෙහායින් පෙන්වීමට
+    admob.banner.config({
+      id: admobid.banner,
+      isTesting: false,
+      autoShow: true
+    });
+    admob.banner.prepare();
+
+    // Interstitial (Full Screen) Ad එක Load කරගැනීමට
+    admob.interstitial.config({
+      id: admobid.interstitial,
+      isTesting: false,
+      autoShow: true
+    });
+    admob.interstitial.prepare();
+  }
+}, false);
